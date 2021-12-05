@@ -1,0 +1,25 @@
+---
+- name:
+  hosts: nodes
+  become: yes  
+  tasks:
+   - block:
+       - name: show massege
+         debug:
+           msg: " trying httpd"
+       - name: install package
+         apt:
+           name: httpd_wrong
+           state: present
+     rescue:
+       - name: show error
+         debug:
+           msg: "unknown package"
+       - name: install package
+         apt:
+           name: nginx
+           state: present
+     always:
+       - name: Message
+         debug:
+           msg: "Playbook Done"

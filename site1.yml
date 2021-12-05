@@ -1,0 +1,17 @@
+---
+- name: uptime
+  hosts: nodes
+  become: yes
+  
+
+  tasks:
+  - name: uptime checking remote
+    shell: "echo {{item}}"
+    loop:
+      - "free -m"
+      - "uptime"
+    register: echovar
+  - name: show register values
+    debug:
+      var: echovar
+     

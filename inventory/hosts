@@ -1,0 +1,2 @@
+[nodes]
+172.31.14.193 ansible_ssh_user=node ansible_sudo_pass=node

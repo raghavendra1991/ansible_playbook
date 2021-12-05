@@ -1,0 +1,17 @@
+---
+- name: configuration varible setting
+  hosts: nodes
+  become: yes
+  vars_files:
+  - vars.yml
+
+  tasks:
+  - name: install multiple packages
+    apt:
+      name: "{{web_package}}"
+      state: present
+    register: stdout
+    ignore_errors: yes
+  - name: shows the results
+    debug:
+      msg: "{{stdout}}"    

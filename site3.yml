@@ -1,0 +1,20 @@
+---
+- name: jinjja
+  hosts: nodes
+  become: yes 
+
+  tasks:
+  - name: deploy code node
+    copy:
+      src: /home/asnadmin/playbook/jinja.j2
+      dest: /home/node/
+      mode: 0777
+
+  - name: deploy code
+    template:
+       dest: /tmp/test.txt
+       src: /home/asnadmin/playbook/jinja.j2
+    register: template_output
+    ignore_errors: yes
+  - debug: 
+      msg: "{{template_output}}"

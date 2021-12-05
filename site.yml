@@ -1,0 +1,30 @@
+---
+- name: shell script running node
+  hosts: nodes
+  become: yes  
+
+  tasks:
+  - name: trasfer the script
+    copy:
+      src: /home/asnadmin/playbook/script.sh
+      dest: /home/node/
+      mode: 0777
+  - name: install package
+    apt:
+      name: net-tools
+      state: present
+    register: apt_output
+  - name: execute package
+    debug:
+      msg: "{{apt_output}}"
+  - name: Execute script       
+    command: sh /home/node/script.sh
+    register: command_output
+    ignore_errors: yes
+  - name: Execute script the ouput
+    debug:
+      msg: "{{command_output}}"
+  - name: Execute script if Failed
+    debug:    
+      msg: "{{script failed to execute}}"
+    when: command_output == true
