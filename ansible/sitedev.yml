@@ -1,0 +1,19 @@
+---
+- name: configuration setup dev
+  hosts: dev
+  become: yes
+
+
+  tasks:
+  - name: collect facts
+    setup:
+  - name: Show details
+    debug:
+      msg: "{{ ansible_distribution }} {{ ansible_hostname }} {{ ansible_default_ipv4['address'] }}"
+    register: var
+  - name:
+    debug:
+      var: var
+    ignore_errors: yes
+  - debug:
+      msg: "playbook done"
